@@ -117,10 +117,6 @@ Agora você pode acessar o painel administrativo do Django visitando `http://127
 
 python manage.py runserver
 
-git config --global user.name "Ezequias S. Santos"
-git config --global user.email "phd.esantos@gmail.com"
-
-
 
 
 ### Passo 12: Criar Modelos e Visualizações
