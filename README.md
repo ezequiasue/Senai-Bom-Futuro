@@ -1,4 +1,4 @@
-# SENAI-BOM-FUTURO
+# Senai - Projeto Bom Futuro - SENAR
 Repositório destinado a treinamento para Alunos do Projeto Bom Futuro
 
 
