@@ -1,17 +1,90 @@
-{% load static %} <!-- Carrega a tag estática -->
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Finanças</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Referencia o arquivo CSS -->
+    <title>Página Inicial - Controle de Finanças</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <!-- Menu de Navegação -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{% url 'index' %}" class="navbar-brand">Controle de Finanças</a>
+            <ul class="navbar-links">
+                <li><a href="{% url 'index' %}" class="navbar-link">Página Inicial</a></li>
+                <li><a href="{% url 'relatorio_categoria' %}" class="navbar-link">Relatório por Categoria</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <h1>Bem-vindo à Página Inicial do Controle de Finanças!</h1>
-    <p>Você está renderizando sua primeira página de finanças via Python e Django!</p>
+    <div class="content">
+        <h1>Bem-vindo à Página Inicial do Controle de Finanças!</h1>
 
+        <h2>Transações</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transacao in transacoes %}
+                <tr>
+                    <td>{{ transacao.get_tipo_display }}</td>
+                    <td>R$ {{ transacao.valor }}</td>
+                    <td>
+                        {% if transacao.categoria %}
+                            {{ transacao.categoria.nome }}
+                        {% else %}
+                            Sem Categoria
+                        {% endif %}
+                    </td>
+                    <td>{{ transacao.descricao }}</td>
+                    <td>{{ transacao.data }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">Nenhuma transação encontrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Categorias</h2>
+        <ul>
+            {% for categoria in categorias %}
+            <li>{{ categoria.nome }}: {{ categoria.descricao }}</li>
+            {% empty %}
+            <li>Nenhuma categoria encontrada.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Resumo por Categoria</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in resumo %}
+                    <tr>
+                        <td>{{ item.categoria__nome }}</td>
+                        <td>R$ {{ item.total|floatformat:2 }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">Nenhum resumo encontrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
