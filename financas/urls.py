@@ -1,7 +1,15 @@
+# Importa as views definidas no arquivo views.py
 from django.urls import path
-from . import views  # Importa as views do seu arquivo views.py
+from . import views
 
+# Define o conjunto de URLs que serão mapeadas para as funções das views
 urlpatterns = [
-    path('', views.lista_transacoes, name='index'),  # A URL principal é a lista_transacoes
-    path('relatorio/', views.relatorio_categoria, name='relatorio_categoria'),  # Relatório por categoria
+    # URL para a página principal que lista todas as transações
+    path('', views.lista_transacoes, name='index'),
+    # URL para exibir o relatório de transações agrupadas por categoria
+    path('relatorio/', views.relatorio_categoria, name='relatorio_categoria'),
+    # URL para lançar uma nova transação
+    path('lancar/', views.lancar_transacao, name='lancar_transacao'),
+    # URL para cadastrar uma nova categoria
+    path('cadastrar_categoria/', views.cadastrar_categoria, name='cadastrar_categoria'),  # Nova URL para cadastrar categoria
 ]
