@@ -1,42 +1,173 @@
-/* styles.css */
+/* Reset básico para garantir que o estilo seja consistente */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+/* Estilo geral da página */
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
     background-color: #f4f4f4;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Estilo do cabeçalho e menu de navegação */
+.navbar {
+    background-color: #333;
+    padding: 10px 0;
+}
+
+.navbar-container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+}
+
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.navbar-link:hover {
+    background-color: #555;
+}
+
+/* Estilos para a seção de conteúdo */
+.content {
+    width: 80%;
+    margin: 20px auto;
+    flex-grow: 1; /* Faz o conteúdo crescer e ocupar o espaço restante */
 }
 
 h1 {
-    color: #4CAF50; /* Verde para o título */
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-p {
-    font-size: 18px;
-    margin-bottom: 20px;
+h2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #444;
 }
 
+/* Estilos para as tabelas */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-th, td {
+table, th, td {
     border: 1px solid #ddd;
-    padding: 10px;
+}
+
+th, td {
+    padding: 12px;
     text-align: left;
 }
 
 th {
-    background-color: #4CAF50; /* Verde para cabeçalho da tabela */
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+td {
+    background-color: #fff;
+}
+
+/* Estilo para o menu de categorias */
+ul {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+ul li {
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+/* Estilo do footer */
+.footer {
+    background-color: #333;
     color: white;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2; /* Cor de fundo alternada para linhas */
+.footer-container {
+    width: 90%;
+    margin: 0 auto;
 }
 
-tr:hover {
-    background-color: #ddd; /* Cor de fundo ao passar o mouse */
+.footer p {
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-links {
+        flex-direction: column;
+    }
+
+    .navbar-link {
+        padding: 10px;
+    }
+
+    .content {
+        width: 95%;
+    }
+
+    .footer-links {
+        flex-direction: column;
+    }
+
+    .footer-link {
+        margin: 5px 0;
+    }
 }
