@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lançamento de Transação</title>
+    <link rel="stylesheet" href="{% static 'css/styles_transacao.css' %}">
+</head>
+<body>
+    <!-- Menu de Navegação -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{% url 'index' %}" class="navbar-brand">Controle de Finanças</a>
+            <ul class="navbar-links">
+                <li><a href="{% url 'index' %}" class="navbar-link">Página Inicial</a></li>
+                <li><a href="{% url 'relatorio_categoria' %}" class="navbar-link">Relatório por Categoria</a></li>
+                <li><a href="{% url 'cadastrar_categoria' %}" class="navbar-link">Cadastrar Categoria</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Lançamento de Transação</h1>
+
+        <!-- Verifica erros -->
+        {% if form.errors %}
+            <div style="color: red;">
+                <p><strong>Por favor, corrija os erros abaixo:</strong></p>
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <!-- Formulário de Lançamento -->
+        <form method="post" action="{% url 'lancar_transacao' %}">
+            {% csrf_token %}
+            
+            <!-- Tipo de Transação (Entrada ou Saída) -->
+            <div>
+                <label for="id_tipo">Tipo de Transação:</label>
+                <select name="tipo" id="id_tipo" required>
+                    <option value="entrada">Entrada</option>
+                    <option value="saida">Saída</option>
+                </select>
+            </div>
+
+            <!-- Valor da Transação -->
+            <div>
+                <label for="id_valor">Valor:</label>
+                <input type="number" name="valor" id="id_valor" step="0.01" required>
+            </div>
+
+            <!-- Categoria -->
+            <div>
+                <label for="id_categoria">Categoria:</label>
+                <select name="categoria" id="id_categoria">
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Descrição da Transação -->
+            <div>
+                <label for="id_descricao">Descrição:</label>
+                <textarea name="descricao" id="id_descricao" rows="4"></textarea>
+            </div>
+
+            <!-- Data da Transação -->
+            <div>
+                <label for="id_data">Data:</label>
+                <input type="date" name="data" id="id_data" value="{{ form.initial.data|date:"Y-m-d" }}" required>
+            </div>
+
+            <!-- Marcar como Pago -->
+            <div>
+                <label for="id_pago">Pago:</label>
+                <input type="checkbox" name="pago" id="id_pago">
+            </div>
+
+            <!-- Data de Vencimento -->
+            <div>
+                <label for="id_data_vencimento">Data de Vencimento:</label>
+                <input type="date" name="data_vencimento" id="id_data_vencimento">
+            </div>
+
+            <!-- Botão de Enviar -->
+            <button type="submit">Salvar Transação</button>
+        </form>
+        <br>
+        <a href="{% url 'index' %}">Voltar para a página inicial</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2024 Controle de Finanças - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
