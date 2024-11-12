@@ -1,33 +1,59 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Relatório por Categoria</title>
+    <link rel="stylesheet" href="{% static 'css/styles_relatorios_categorias.css' %}">
 </head>
 <body>
-    <h1>Relatório de Transações por Categoria</h1>
+    <!-- Menu de Navegação -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{% url 'index' %}" class="navbar-brand">Controle de Finanças</a>
+            <ul class="navbar-links">
+                <li><a href="{% url 'index' %}" class="navbar-link">Página Inicial</a></li>
+                <li><a href="{% url 'lancar_transacao' %}" class="navbar-link">Lançar Transação</a></li>
+                <li><a href="{% url 'cadastrar_categoria' %}" class="navbar-link">Cadastrar Categoria</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <h2>Resumo das Categorias</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Categoria</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in resumo %}
-                <tr>
-                    <td>{{ item.categoria__nome }}</td>
-                    <td>R$ {{ item.total|floatformat:2 }}</td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="2">Nenhum resumo encontrado.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <!-- Conteúdo do Relatório -->
+    <div class="content">
+        <h1>Relatório de Transações por Categoria</h1>
 
+        <h2>Resumo das Categorias</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in resumo %}
+                    <tr>
+                        <td>{{ item.categoria__nome }}</td>
+                        <td>R$ {{ item.total|floatformat:2 }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">Nenhum resumo encontrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <a href="{% url 'index' %}">Voltar para a página inicial</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2024 Controle de Finanças - Todos os direitos reservados.</p>
+        </div>
+    </footer>
 </body>
 </html>
